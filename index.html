@@ -23,18 +23,237 @@
       text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 15px #00ffe1;
     }
 
-    .time {
-      font-size: 60px;
-      margin-bottom: 10px;
+    header {
+      font-size: 72px;
+      color: #39ff14;
+      margin-bottom: 40px;
+      text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
     }
 
     .static-quote {
-      font-size: 20px;
-      margin-bottom: 40px;
-      color: #b0f7f2;
+      font-size: 22px;
+      margin-bottom: 30px;
+      color: #ff0033;
+      text-shadow: 0 0 10px #ff0033, 0 0 20px #ff0033;
     }
 
     .quote {
+      font-size: 24px;
+      margin-bottom: 20px;
+      max-width: 80%;
+      color: #39ff14;
+      text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14;
+      transition: opacity 1s;
+    }
+
+    .next-quote {
+      font-size: 16px;
+      color: #888;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 48px;
+      }
+
+      .quote {
+        font-size: 20px;
+      }
+
+      .static-quote {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header id="clock" class="glow">Loading time...</header>
+  <div class="static-quote">"Time and tide waits for none"</div>
+  <div class="quote" id="quote">Loading quote...</div>
+  <div class="next-quote" id="nextQuoteTimer">Next quote in: 45 minutes</div>
+
+  <script>
+    // Clock (Indian Time)
+    function updateClock() {
+      const now = new Date();
+      const options = { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: false };
+      document.getElementById('clock').textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+    }
+
+    setInterval(updateClock, 10000);
+    updateClock();
+
+    // QUOTES
+    const quotes = [
+      "Life is what happens when you're busy making other plans.",
+      "The purpose of our lives is to be happy.",
+      "You only live once, but if you do it right, once is enough.",
+      "Live in the sunshine, swim the sea, drink the wild air.",
+      "Don’t count the days, make the days count.",
+      "Do not take life too seriously. You will never get out of it alive.",
+      "Life is either a daring adventure or nothing at all.",
+      "Happiness is not something ready-made. It comes from your own actions.",
+      "The good life is one inspired by love and guided by knowledge.",
+      "The best way to predict the future is to invent it.",
+      "Every moment is a fresh beginning.",
+      "Life is short. Do stuff that matters.",
+"Fall seven times, stand up eight.",
+"The only limit is the one you set yourself.",
+"Dreams don't work unless you do.",
+"Stay hungry. Stay foolish.",
+"Make it happen. Shock everyone.",
+"Strive for progress, not perfection.",
+"You are your only limit.",
+"Push yourself, no one else will do it for you.",
+"Don't stop when you're tired. Stop when you're done.",
+"The harder you work, the luckier you get.",
+"Every day is a second chance.",
+"Work hard in silence, let success make the noise.",
+"Do it with passion or not at all.",
+"Be stronger than your excuses.",
+"Life begins at the end of your comfort zone.",
+"Don't just exist. Live.",
+"Believe in the magic of new beginnings.",
+"One day or day one. You decide.",
+"Success is never owned, it's rented — and rent is due every day.",
+"Don't wait. The time will never be just right.",
+"Small steps every day.",
+"Dream big. Start small. Act now.",
+"Discipline is the bridge between goals and accomplishment.",
+"Your vibe attracts your tribe.",
+"Progress, not perfection.",
+"Do something today that your future self will thank you for.",
+"Kill them with success and bury them with a smile.",
+"Success doesn't come to you, you go to it.",
+"The secret of getting ahead is getting started.",
+"Keep going. Everything you need will come to you.",
+"Some people dream of success, others wake up and work for it.",
+"Rise above the storm and you will find the sunshine.",
+"You get what you work for, not what you wish for.",
+"Your only limit is your mind.",
+"The future depends on what you do today.",
+"The best revenge is massive success.",
+"If you're going through hell, keep going.",
+"Action expresses priorities.",
+"Live less out of habit and more out of intent.",
+"Make your life a masterpiece.",
+"Don’t be afraid to give up the good to go for the great.",
+"Hard work beats talent when talent doesn’t work hard.",
+"Be so good they can’t ignore you.",
+"Success is not for the lazy.",
+"You have to be odd to be number one.",
+"Stay focused and never give up.",
+"Keep your eyes on the stars and your feet on the ground.",
+"The best way to get things done is to simply begin.",
+"Success is 1% inspiration, 99% perspiration.",
+"Keep showing up.",
+"Fail fast, learn fast, move on.",
+"It’s going to be hard, but hard is not impossible.",
+"Stay positive. Work hard. Make it happen.",
+"The only way to do great work is to love what you do.",
+"Great things never came from comfort zones.",
+"The comeback is always stronger than the setback.",
+"You miss 100% of the shots you don't take.",
+"Stay humble. Hustle hard.",
+"You didn't come this far to only come this far.",
+"Work until your idols become your rivals.",
+"Don’t count the days, make the days count.",
+"Take the risk or lose the chance.",
+"Don’t quit. Suffer now and live the rest of your life as a champion.",
+"Keep your head high and your middle finger higher.",
+"Be fearless in the pursuit of what sets your soul on fire.",
+"You have the power to create your own future.",
+"Storms make trees take deeper roots.",
+"Chase dreams, not people.",
+"Believe in yourself and all that you are.",
+"Be the energy you want to attract.",
+"Wake up with determination. Go to bed with satisfaction.",
+"If it doesn’t challenge you, it won’t change you.",
+"Don’t let small minds convince you that your dreams are too big.",
+"Do it scared.",
+"The man on top of the mountain didn’t fall there.",
+"The grind never stops.",
+"If you want it, work for it.",
+"Discipline will take you places motivation can't.",
+"You don’t find willpower, you create it.",
+"Sometimes later becomes never. Do it now.",
+"Let your hustle be louder than your words.",
+"You either get bitter or get better.",
+"Starve your distractions, feed your focus.",
+"Learn from yesterday. Live for today.",
+"Today’s struggle is tomorrow’s strength.",
+"Only dead fish go with the flow.",
+"If not now, when?",
+"Outdream yourself.",
+"Do more things that make you forget to check your phone.",
+"Success smells like sweat.",
+"Every expert was once a beginner.",
+"Start where you are. Use what you have. Do what you can.",
+"Be brave enough to suck at something new.",
+"You don’t need to have it all figured out to move forward.",
+"Mindset is everything.",
+"Live the story you want to tell.",
+"Decide. Commit. Succeed.",
+"Create the life you can’t wait to wake up to.",
+"Wake. Pray. Slay.",
+"Don't adapt to the energy in the room. Influence it.",
+"Grind now. Shine later.",
+"Move in silence. Only speak when it’s time to say checkmate.",
+"Failure is a bruise, not a tattoo.",
+"Don’t downgrade your dream just to fit your reality.",
+"Fall in love with the process.",
+"Keep your circle small and your grind loud.",
+"Be addicted to bettering yourself.",
+"Don’t limit your challenges. Challenge your limits.",
+"Die with memories, not dreams.",
+"Work hard. Be kind. Stay humble.",
+"Done is better than perfect.",
+"The best view comes after the hardest climb.",
+"Be stubborn about your goals, and flexible about your methods.",
+"Your dreams don’t work unless you do.",
+"Don’t be busy. Be productive.",
+"Success doesn’t come from what you do occasionally, it comes from what you do consistently.",
+"Outwork your yesterday.",
+"The difference between ordinary and extraordinary is that little extra.",
+"Don't wish for it. Work for it.",
+"Don't wait for opportunity. Create it.",
+"Keep your dreams alive.",
+"The pain you feel today will be the strength you feel tomorrow.",
+"Be the hardest worker in the room.",
+"Nobody cares. Work harder.",
+"Nothing changes if nothing changes.",
+"Everything you’ve ever wanted is on the other side of fear.",
+"Don't overthink. Just let it flow.",
+"One life. One chance. No regrets.",
+      // ... Add more here (you already added 900+ above)
+    ];
+
+    // QUOTE SWITCHER
+    let quoteIndex = Math.floor(Math.random() * quotes.length);
+    function updateQuote() {
+      document.getElementById('quote').textContent = quotes[quoteIndex];
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+      minutesLeft = 45;
+    }
+
+    updateQuote();
+
+    // TIMER
+    let minutesLeft = 45;
+    function updateNextQuoteTimer() {
+      minutesLeft--;
+      if (minutesLeft <= 0) {
+        updateQuote();
+      }
+      document.getElementById('nextQuoteTimer').textContent =
+        `Next quote in: ${minutesLeft} minute${minutesLeft !== 1 ? 's' : ''}`;
+    }
+
+    setInterval(updateNextQuoteTimer, 60000); // 1 minute
+  </script>
+</body>
+</html>    .quote {
       font-size: 24px;
       margin-bottom: 20px;
       max-width: 80%;
