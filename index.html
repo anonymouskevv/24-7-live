@@ -61,7 +61,7 @@
   <header id="clock">Loading time...</header>
   <div class="static-quote">"Time and tide waits for none"</div>
   <div class="quote" id="quote">Loading quote...</div>
-  <div class="next-quote" id="next-quote">Next quote in: 45 minutes</div>
+  <div class="next-quote" id="next-quote">Next quote in: 15 minutes</div>
 
   <script>
     const quotes = [
@@ -239,13 +239,13 @@
 
     function startQuoteTimer() {
       updateQuote();
-      let remaining = 45;
+      let remaining = 15;
       countdownToNextQuote(remaining);
       setInterval(() => {
         remaining--;
         if (remaining <= 0) {
           updateQuote();
-          remaining = 45;
+          remaining = 15;
         }
         countdownToNextQuote(remaining);
       }, 60000); // Every minute
