@@ -222,7 +222,8 @@
     const nextQuoteElement = document.getElementById("next-quote");
 
     function updateClock() {
-      const now = new Date();
+     const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
+
       const hours = String(now.getHours()).padStart(2, "0");
       const minutes = String(now.getMinutes()).padStart(2, "0");
       document.getElementById("clock").textContent = `${hours}:${minutes}`;
